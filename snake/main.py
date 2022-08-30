@@ -20,6 +20,7 @@ screen.tracer(0)
 snake = Snake(screen_width, screen_height)
 food = Food(screen_width, screen_height)
 scoreboard = ScoreBoard(screen_width, screen_height)
+scoreboard.boundary()
 
 screen.listen()
 
@@ -30,13 +31,41 @@ screen.onkey(snake.right, "Right")
 
 game = True
 while game:
+
     screen.update()
     time.sleep(0.1)
+
+    scoreboard.clear()
+    scoreboard.boundary()
+    scoreboard.showscore()
+
     snake.move()
-    snake.check()
+    # snake.check()
     if snake.head.distance(food) < 15:
-        scoreboard.score+=1
-        scoreboard.showscore()
+        scoreboard.score += 1
+        snake.extendsegment()
         food.refresh()
 
+    if snake.left_limit > snake.head.xcor() or snake.head.xcor() > snake.right_limit or snake.down_limit > snake.head.ycor() \
+            or snake.head.ycor() > snake.up_limit:
+        scoreboard.gameover()
+        game = False
+
+    for segment in snake.segments:
+        if segment == snake.head:
+            pass
+        elif snake.head.distance(segment) < 10:
+            user_input = input("Do you want to play again?(y/n):").lower()
+            if user_input == "y":
+                break
+            elif user_input == "n":
+                game = False
+            else:
+                abc=input("Please enter \"y\" to continue and \"n\" to exit.")
+                while abc in "yn":
+                    abc = input("Please enter \"y\" to continue and \"n\" to exit.")
+                    time.sleep(1)
+                    pass
+
+print("the end")
 screen.exitonclick()
