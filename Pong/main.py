@@ -3,6 +3,7 @@ from turtle import Turtle, Screen
 from paddle import Paddle
 import time
 from scoreboard import ScoreBoard
+from ball import Ball
 
 
 screen_width = 800
@@ -15,9 +16,17 @@ screen.title("Pong Game")
 screen.tracer(0)
 scoreboard=ScoreBoard(screen_width, screen_height)
 
-paddle_1=Paddle()
+paddles=Paddle(screen_width, screen_height,level="medium")
+paddles.create_paddles()
+ball_1=Ball(screen_width, screen_height)
+
+
 screen.listen()
 
+screen.onkeypress(paddles.moveup_1, "Up")
+screen.onkeypress(paddles.movedown_1, "Down")
+screen.onkeypress(paddles.moveup_2, "w")
+screen.onkeypress(paddles.movedown_2, "s")
 
 
 
@@ -28,18 +37,17 @@ screen.listen()
 
 
 
-game_is_on = True
-while game_is_on:
-    pass
+while scoreboard.game_is_on:
     screen.update()
     time.sleep(0.1)
     scoreboard.showscore()
-    # snake.move()
+    ball_1.move()
     # snake.check()
     # if snake.head.distance(food) < 15:
     #     scoreboard.score+=1
-    #     scoreboard.showscore()
+    #     scoreboard.showscore()qq
     #     food.refresh()
-    game_is_on=screen.onkey(scoreboard.quit(), "q")
+    screen.onkey(scoreboard.working, "?")
+    screen.onkey(scoreboard.quit, "q")
 
-screen.exitonclick()
+# screen.exitonclick()
