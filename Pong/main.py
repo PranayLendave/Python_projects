@@ -29,7 +29,9 @@ screen.onkeypress(paddles.movedown_2, "s")
 while scoreboard.game_is_on:
     screen.update()
     time.sleep(0.1)
+
     scoreboard.showscore()
+    scoreboard.draw_ractangle()
     ball_1.move()
     if ball_1.ycor() > screen_height // 2 - 50 or ball_1.ycor() < -(screen_height // 2 - 25):
         ball_1.bounce_y()

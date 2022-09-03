@@ -6,6 +6,7 @@ import time
 class ScoreBoard(Turtle):
     def __init__(self, screen_width, screen_height):
         super().__init__()
+        self.screen_width = screen_width
         self.screen_height = screen_height
         self.game_is_on = True
         self.score = 0
@@ -15,12 +16,14 @@ class ScoreBoard(Turtle):
         self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
         self.hideturtle()
         print("score board up")
+        self.draw_ractangle()
 
     def showscore(self):
         self.clear()
+        self.goto(0, (self.screen_height // 2) - 33)
         self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
 
-    def disp_msg(self,msg):
+    def disp_msg(self, msg):
         self.clear()
         self.goto(0, 0)
         self.write(f"{msg}", align="center", font=("Arial", 24, "normal"))
@@ -37,4 +40,13 @@ class ScoreBoard(Turtle):
         self.goto(0, 0)
         self.write(f"The screen is working", align="center", font=("Arial", 24, "normal"))
         time.sleep(1)
-        self.goto(0, (self.screen_height // 2) - 33)
+        # self.goto(0, (self.screen_height // 2) - 33)
+
+    def draw_ractangle(self):
+        self.goto(-(self.screen_width // 2), self.screen_height // 2 - 50)
+        self.pendown()
+        self.goto(self.screen_width // 2, self.screen_height // 2 - 50)
+        self.goto(self.screen_width // 2, -(self.screen_height // 2 - 50))
+        self.goto(-self.screen_width // 2, -(self.screen_height // 2 - 50))
+        self.goto(-self.screen_width // 2, self.screen_height // 2 - 50)
+        self.penup()
