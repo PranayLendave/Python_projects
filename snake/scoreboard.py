@@ -1,11 +1,15 @@
 from turtle import Turtle
 from snake import Snake
-ALIGNMENT="center"
-FONTNAME="Atari"
-THICKNESS=24
+
+ALIGNMENT = "center"
+FONTNAME = "Atari"
+THICKNESS = 24
+
+
 class ScoreBoard(Turtle):
     def __init__(self, screen_width, screen_height):
         super().__init__()
+        self.high_score = 0
         self.score = 0
         self.color("white")
         self.penup()
@@ -14,10 +18,14 @@ class ScoreBoard(Turtle):
         self.hideturtle()
         self.screen_width_1 = screen_width // 2
         self.screen_height_1 = screen_height // 2
-        self.left_limit = (-1 * self.screen_width_1) +10
-        self.right_limit = self.screen_width_1 -10
+        self.left_limit = (-1 * self.screen_width_1) + 10
+        self.right_limit = self.screen_width_1 - 10
         self.up_limit = self.screen_width_1 - 30
         self.down_limit = (-1 * self.screen_width_1) + 10
+        with open("high_score.txt", mode="r") as file:
+            contents = file.read()
+            print(contents)
+            self.high_score = int(contents)
 
     def boundary(self):
         self.color("white")
@@ -25,24 +33,31 @@ class ScoreBoard(Turtle):
         self.hideturtle()
         self.speed("fastest")
         self.penup()
-        self.goto(self.left_limit,self.down_limit)
+        self.goto(self.left_limit, self.down_limit)
         self.pendown()
-        self.goto(self.right_limit,self.down_limit)
-        self.goto(self.right_limit,self.up_limit)
-        self.goto(self.left_limit,self.up_limit)
+        self.goto(self.right_limit, self.down_limit)
+        self.goto(self.right_limit, self.up_limit)
+        self.goto(self.left_limit, self.up_limit)
         self.goto(self.left_limit, self.down_limit)
         self.penup()
 
-        self.goto(0,0)
+        self.goto(0, 0)
 
     def showscore(self):
-        self.goto(0,self.up_limit)
-        self.write(f"Score:{self.score}", align=ALIGNMENT, font=(FONTNAME, THICKNESS, "normal"))
+        self.goto(0, self.up_limit)
+        self.write(f"Score:{self.score}           High score: {self.high_score}", align=ALIGNMENT,
+                   font=(FONTNAME, THICKNESS, "normal"))
 
-    def gameover(self):
-        self.goto(0, 0)
-        self.write(f"GAME OVER", align=ALIGNMENT, font=(FONTNAME, THICKNESS+4, "normal"))
-        self.goto(0, -20)
-        self.write(f"Please enter \"y\" to continue and \"n\" to exit.", align=ALIGNMENT, font=(FONTNAME, THICKNESS -10, "normal"))
+    # def gameover(self):
+    #     self.goto(0, 0)
+    #     self.write(f"GAME OVER", align=ALIGNMENT, font=(FONTNAME, THICKNESS+4, "normal"))
+    #     self.goto(0, -20)
+    #     self.write(f"Please enter \"y\" to continue and \"n\" to exit.", align=ALIGNMENT, font=(FONTNAME, THICKNESS -10, "normal"))
 
+    def reset(self):
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open("high_score.txt", mode="w") as file:
+                file.write(str(self.high_score))
 
+        self.score = 0

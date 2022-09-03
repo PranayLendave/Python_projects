@@ -48,24 +48,25 @@ while game:
 
     if snake.left_limit > snake.head.xcor() or snake.head.xcor() > snake.right_limit or snake.down_limit > snake.head.ycor() \
             or snake.head.ycor() > snake.up_limit:
-        scoreboard.gameover()
-        game = False
+        # scoreboard.gameover()
+        scoreboard.reset()
+        snake.reset()
+        food.refresh()
+
 
     for segment in snake.segments:
         if segment == snake.head:
             pass
         elif snake.head.distance(segment) < 10:
-            user_input = input("Do you want to play again?(y/n):").lower()
-            if user_input == "y":
-                break
-            elif user_input == "n":
-                game = False
-            else:
-                abc=input("Please enter \"y\" to continue and \"n\" to exit.")
-                while abc in "yn":
-                    abc = input("Please enter \"y\" to continue and \"n\" to exit.")
-                    time.sleep(1)
-                    pass
+            scoreboard.reset()
+            snake.reset()
+            food.refresh()
+    #         else:
+    #             abc=input("Please enter \"y\" to continue and \"n\" to exit.")
+    #             while abc in "yn":
+    #                 abc = input("Please enter \"y\" to continue and \"n\" to exit.")
+    #                 time.sleep(1)
+    #                 pass
 
 print("the end")
 screen.exitonclick()
