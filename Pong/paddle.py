@@ -4,7 +4,7 @@ from turtle import Turtle
 class Paddle():
     def __init__(self, screen_width, screen_height, level="easy"):
         self.level = level
-        self.screen_width = screen_height
+        self.screen_width = screen_width
         self.screen_height = screen_height
         self.cal_level()
 
@@ -12,14 +12,15 @@ class Paddle():
 
         self.paddle_1 = Turtle(shape="square")
         self.paddle_1.seth(90)
-        self.paddle_1.goto(self.screen_width // 2, 0)
+        print(self.screen_width)
+        self.paddle_1.goto(self.screen_width // 2-100, 0)
         self.paddle_1.shapesize(stretch_wid=0.5, stretch_len=self.paddle_width, outline=10)
         self.paddle_1.up()
         self.paddle_1.color("white")
 
         self.paddle_2 = Turtle(shape="square")
         self.paddle_2.seth(90)
-        self.paddle_2.goto(-(self.screen_width // 2), 0)
+        self.paddle_2.goto(-(self.screen_width // 2-100), 0)
         self.paddle_2.shapesize(stretch_wid=0.5, stretch_len=self.paddle_width, outline=10)
         self.paddle_2.up()
         self.paddle_2.color("white")

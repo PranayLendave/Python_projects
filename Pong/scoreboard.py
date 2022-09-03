@@ -20,6 +20,11 @@ class ScoreBoard(Turtle):
         self.clear()
         self.write(f"Score:{self.score}", align="center", font=("Arial", 24, "normal"))
 
+    def disp_msg(self,msg):
+        self.clear()
+        self.goto(0, 0)
+        self.write(f"{msg}", align="center", font=("Arial", 24, "normal"))
+
     def quit(self):
         print("Thank you for playing")
         self.game_is_on = False
